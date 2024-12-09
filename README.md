@@ -2,7 +2,8 @@
 
 A simple desktop application to convert HEIC/HEIF images to JPEG format.
 
-![HEIC to JPEG Converter Screenshot](screenshot.jpg)
+
+![HEIC to JPEG Converter Screenshot](Screenshot.png)
 
 ## Features
 
