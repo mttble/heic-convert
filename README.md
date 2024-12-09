@@ -1,104 +1,64 @@
-# heic-convert
+# HEIC to JPEG Converter
 
-> Convert HEIC/HEIF images to JPEG and PNG
+A simple desktop application to convert HEIC/HEIF images to JPEG format.
 
-[![ci][ci.svg]][ci.link]
-[![npm-downloads][npm-downloads.svg]][npm.link]
-[![npm-version][npm-version.svg]][npm.link]
+![HEIC to JPEG Converter Screenshot](assets/screenshot.png)
 
-[ci.svg]: https://github.com/catdad-experiments/heic-convert/actions/workflows/ci.yml/badge.svg
-[ci.link]: https://github.com/catdad-experiments/heic-convert/actions/workflows/ci.yml
-[npm-downloads.svg]: https://img.shields.io/npm/dm/heic-convert.svg
-[npm.link]: https://www.npmjs.com/package/heic-convert
-[npm-version.svg]: https://img.shields.io/npm/v/heic-convert.svg
+## Features
 
-## Install
+- User-friendly graphical interface
+- Batch conversion of HEIC files to JPEG
+- Progress bar to track conversion status
+- Maintains original HEIC files while creating JPEG copies
+- Simple directory selection with browse buttons
 
+## Installation
+
+### For Users
+1. Download the latest release from the releases page
+2. Run the installer
+3. Launch the application from your Start Menu or Desktop shortcut
+
+### For Developers
+1. Clone this repository:
 ```bash
-npm install heic-convert
+git clone [your-repo-url]
+cd heic-convert
 ```
 
-## Usage in NodeJS
-
-cd to directory and run with command 'node index.js'
-images will go to 'converted_images' inside HEIC-CONVERT Directory.
-Convert the main image in a HEIC to JPEG
-
-```javascript
-const { promisify } = require('util');
-const fs = require('fs');
-const convert = require('heic-convert');
-
-(async () => {
-  const inputBuffer = await promisify(fs.readFile)('/path/to/my/image.heic');
-  const outputBuffer = await convert({
-    buffer: inputBuffer, // the HEIC file buffer
-    format: 'JPEG',      // output format
-    quality: 1           // the jpeg compression quality, between 0 and 1
-  });
-
-  await promisify(fs.writeFile)('./result.jpg', outputBuffer);
-})();
+2. Install dependencies:
+```bash
+npm install
 ```
 
-Convert the main image in a HEIC to PNG
-
-```javascript
-const { promisify } = require('util');
-const fs = require('fs');
-const convert = require('heic-convert');
-
-(async () => {
-  const inputBuffer = await promisify(fs.readFile)('/path/to/my/image.heic');
-  const outputBuffer = await convert({
-    buffer: inputBuffer, // the HEIC file buffer
-    format: 'PNG'        // output format
-  });
-
-  await promisify(fs.writeFile)('./result.png', outputBuffer);
-})();
+3. Run the application:
+```bash
+npm start
 ```
 
-Convert all images in a HEIC
-
-```javascript
-const { promisify } = require('util');
-const fs = require('fs');
-const convert = require('heic-convert');
-
-(async () => {
-  const inputBuffer = await promisify(fs.readFile)('/path/to/my/image.heic');
-  const images = await convert.all({
-    buffer: inputBuffer, // the HEIC file buffer
-    format: 'JPEG'       // output format
-  });
-
-  for (let idx in images) {
-    const image = images[idx];
-    const outputBuffer = await image.convert();
-    await promisify(fs.writeFile)(`./result-${idx}.jpg`, outputBuffer);
-  }
-})();
+4. Build the executable:
+```bash
+npm run build
 ```
 
-The work to convert an image is done when calling `image.convert()`, so if you only need one of the images in a multi-image file, you can convert just that one from the `images` array and skip doing any work for the remaining images.
+## Usage
 
-_Note that while the converter returns a Promise and is overall asynchronous, a lot of work is still done synchronously, so you should consider using a worker thread in order to not block the main thread in highly concurrent production environments._
+1. Click "Browse" next to Source Directory to select the folder containing your HEIC images
+2. Click "Browse" next to Destination Directory to select where you want the converted images to be saved
+3. Click "Convert Images" to start the conversion process
+4. Progress bar will show conversion status
+5. Status message will display when conversion is complete
 
-## Usage in the browser
+## Technologies Used
 
-While the NodeJS version of `heic-convert` may be compiled for use in the browser with something like `webpack`, [not all build tools necessarily like to compile all modules well](https://github.com/catdad-experiments/heic-convert/issues/29). However, what further complicates things is that this module uses pure-javascript implementations of a jpeg and png encoder. But the browser has its own native encoders! Let's just use those instead of including a ton of extra code in your bundle.
+- Electron
+- Node.js
+- heic-convert library
 
-When compiling a client-side project, use:
+## License
 
-```javascript
-const convert = require('heic-convert/browser');
-```
+[Your chosen license]
 
-This is currently only supported in the main thread. Support for workers may be added in the future, but if you need it sooner, please create an issue or even a PR!
+## Credits
 
-## Related
-
-* [heic-cli](https://github.com/catdad-experiments/heic-cli) - convert heic/heif images to jpeg or png from the command line
-* [heic-decode](https://github.com/catdad-experiments/heic-decode) - decode heic images to raw image data
-* [libheif-js](https://github.com/catdad-experiments/libheif-js) - libheif as a pure-javascript npm module
+Based on the heic-convert library by [catdad-experiments](https://github.com/catdad-experiments/heic-convert)
