@@ -2,7 +2,7 @@
 
 A simple desktop application to convert HEIC/HEIF images to JPEG format.
 
-![HEIC to JPEG Converter Screenshot](screenshot.jpg)
+![HEIC to JPEG Converter Screenshot](https://github.com/mttble/heic-convert/blob/main/screenshot.jpg?raw=true)
 
 ## Features
 
